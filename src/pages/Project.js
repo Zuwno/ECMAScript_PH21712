@@ -1,11 +1,15 @@
 import Header from "../components/Header";
 import ProjectList from "../components/ProjectList"
+import { projectsFake } from "../Data";
+import Footer from "../components/Footer";
 
 const ProjectsPage = () => 
 {
     return `
     ${Header()}
-    ${ProjectList()}`
+    <div>Projects</div>
+    ${ProjectList({projects: projectsFake})}
+    ${Footer()}`
    
 }
 
