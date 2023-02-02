@@ -4,7 +4,7 @@ const menus = [
     {id: 3, name: "Liên hệ", link: "/Contact"},
     {id: 4, name: "Bài viết", link: "/Posts"},
 ];
-const projectsFake = [
+const projects = [
     {
         id: 1,
         name: "Dự án 1",
@@ -26,4 +26,4 @@ const projectsFake = [
         ],
     },
 ];
-export { projectsFake, menus };
+export { projects, menus };

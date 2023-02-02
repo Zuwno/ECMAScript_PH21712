@@ -1,6 +1,6 @@
 import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { projectsFake } from "../Data"
+
+import { projects } from "../Data"
 const ProjectDetailPage = (id) => 
 {
         const CurrentProject = projectsFake.find((project) => project.id == id)
@@ -10,7 +10,7 @@ const ProjectDetailPage = (id) =>
     return `
     ${Header()}
     ${CurrentProject.name}
-    ${Footer()}
+   
     `
 };
 

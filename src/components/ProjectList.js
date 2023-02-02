@@ -1,8 +1,10 @@
-
-import ProjectItem from "./ProjectItem";
 const ProjectList = ({ projects }) => {
-    return `
-        ${projects?.map((project) => `${ProjectItem({project})}`).join("")}
+  return `
+        ${projects
+          ?.map((item) => {
+            return `<div><a href="/Projects/${item.id}">${item.name}</a></div>`;
+          })
+          .join("")}
     `;
 };
 export default ProjectList;
