@@ -1,5 +1,5 @@
 import Navigo from "navigo";
-const router = new Navigo ("/" , {hash: true, linksSelector : "a"});
+const router = new Navigo("/", { linksSelector: "a", hash: true });
 
 let effects = [];
 let currentEffectOrder = 0;
@@ -19,8 +19,9 @@ const debounce = (fn, timeout = 100) => {
         timeId = setTimeout(() => fn(...rest), timeout);
     };
 };
+
 const render = (component, container) => {
-    container.innerHTML = component;
+    container.innerHTML = component();
 
     rootComponent = component;
     rootContainer = container;
