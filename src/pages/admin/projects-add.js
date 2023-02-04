@@ -1,8 +1,10 @@
-import {projects} from "../../Data"
-import { useEffect, useState, router } from "../../lib";
+import { router, useEffect } from "@/lib";
+
+
 
 const AdminProjectsAddPage = () => 
 {
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
      useEffect(() => {
           const form = document.querySelector("#form-add");
           const projectName = document.querySelector("#project-name");
@@ -20,6 +22,7 @@ const AdminProjectsAddPage = () =>
               
               projects.push(project);
   
+                localStorage.setItem("projects", JSON.stringify(projects));
             
               router.navigate("/Admin/Projects");
           });
@@ -34,7 +37,7 @@ const AdminProjectsAddPage = () =>
                   <label for="" class="form-label">Tác Giả</label>
                   <input type="text" class="form-control" id="project-author" />
               </div>
-              <button class="btn btn-primary">Thêm dự án</button>
+              <button style="margin-top:10px;" class="btn btn-primary ">Thêm dự án</button>
           </form>
           </div>`;
 };
