@@ -1,10 +1,6 @@
-import { router, useEffect } from "@/lib";
+import { useEffect, router } from "@/lib";
 
-
-
-const AdminProjectsEditPage = () => 
-{
-    
+const AdminProjectEditPage = ({ id }) => {
     const projects = JSON.parse(localStorage.getItem("projects") || []);
 
     const currentProject = projects.find((project) => project.id == id);
@@ -35,7 +31,7 @@ const AdminProjectsEditPage = () =>
 
             localStorage.setItem("projects", JSON.stringify(newProjects));
 
-            router.navigate("/admin/projects");
+            router.navigate("/Admin/Projects");
         });
     });
     return `<div>
@@ -43,7 +39,7 @@ const AdminProjectsEditPage = () =>
         <h1>Sửa dự án</h1>
             <form action="" id="form-edit">
                 <div class="form-group">
-                    <label for="" class="form-label">Tên Dự án</label>
+                    <label for="" class="form-label">Ten Dự án</label>
                     <input type="text" class="form-control" id="project-name" value="${currentProject.name}"/>
                 </div>
                 <div class="form-group">
@@ -56,4 +52,4 @@ const AdminProjectsEditPage = () =>
     </div>`;
 };
 
-export default AdminProjectsEditPage;
+export default AdminProjectEditPage;

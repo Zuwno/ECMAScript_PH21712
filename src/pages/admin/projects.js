@@ -5,6 +5,7 @@ import { useEffect, useState } from "@/lib";
 const AdminProjectsPage = () => {
 
   const [data, setData] = useState([]);
+  const [status, setStatus] = useState("loading...");
 
   useEffect(() => {
     // const projects = JSON.parse(localStorage.getItem("projects")) || [];
@@ -38,8 +39,12 @@ const AdminProjectsPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        ${data.map((project, index) => {
-                            return `
+                    ${
+                      data.length == 0
+                          ? `<tr><td colspan="3">${status}</td></tr>`
+                          : data
+                                .map((project, index) => {
+                                    return `
                                 <tr>
                                     <td>${index + 1}</td>
                                     <td>${project.name}</td>
@@ -47,7 +52,7 @@ const AdminProjectsPage = () => {
                                         <button data-name="DataName" data-id="${
                                           project.id
                                         }"class="btn btn-danger btn-remove">Remove</button>
-                                        <a href="#/Admin/Projects/Edit">Edit</a>
+                                        <a href="#/Admin/Project/${project.id}/Edit">Edit</a>
                                     </td>
                                 </tr>
                             `;
