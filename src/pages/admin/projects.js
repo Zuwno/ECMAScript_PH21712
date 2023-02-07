@@ -7,8 +7,11 @@ const AdminProjectsPage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    setData(projects);
+    // const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    // setData(projects);
+    fetch("https://reqres.in/api/unknown")
+            .then((response) => response.json())
+            .then(({ data }) => setData(data));
   },[]);
 
   useEffect(function () {
@@ -35,8 +38,7 @@ const AdminProjectsPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        ${data
-                          .map((project, index) => {
+                        ${data.map((project, index) => {
                             return `
                                 <tr>
                                     <td>${index + 1}</td>
@@ -45,7 +47,7 @@ const AdminProjectsPage = () => {
                                         <button data-name="DataName" data-id="${
                                           project.id
                                         }"class="btn btn-danger btn-remove">Remove</button>
-                                        <a href="/Projects/:id/:action">Edit</a>
+                                        <a href="#/Admin/Projects/Edit">Edit</a>
                                     </td>
                                 </tr>
                             `;

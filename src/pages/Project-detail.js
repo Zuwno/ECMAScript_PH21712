@@ -1,10 +1,9 @@
 import Header from "../components/Header";
 import { projects } from "../Data"
-const ProjectDetailPage = ({id}) => 
+const ProjectDetailPage = ({ id }) => 
 {
         
-        const CurrentProject = projects.find((project) => projects.id == id)
-        console.log(CurrentProject);
+        const CurrentProject = projects.find((project) => project.id == id)
         if(!CurrentProject)  return "Loading..";
         return `
         ${Header()}

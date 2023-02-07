@@ -14,6 +14,7 @@ const AdminProjectsAddPage = () =>
               e.preventDefault();
               
               const project = {
+                
                   id: projects.length + 1,
                   name: projectName.value,
                   author: projectAuthor.value,
