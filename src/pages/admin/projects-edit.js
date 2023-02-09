@@ -1,9 +1,16 @@
-import { useEffect, router } from "@/lib";
+import { useEffect, router, useState } from "@/lib";
 
 const AdminProjectEditPage = ({ id }) => {
-    const projects = JSON.parse(localStorage.getItem("projects") || []);
+    // const projects = JSON.parse(localStorage.getItem("projects") || []);
 
-    const currentProject = projects.find((project) => project.id == id);
+    // const currentProject = projects.find((project) => project.id == id);
+
+    const [project, setProject] = useState({});
+    useEffect(() => {
+        fetch(`http://localhost:3000/projects/${id}`)
+            .then((response) => response.json())
+            .then((data) => setProject(data));
+    }, []);
     useEffect(() => {
         const form = document.getElementById("form-edit");
         const projectName = document.getElementById("project-name");
@@ -12,26 +19,19 @@ const AdminProjectEditPage = ({ id }) => {
         form.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            const newProject = {
-                id: currentProject.id,
+            const formData = {
+                id,
                 name: projectName.value,
                 author: projectAuthor.value,
             };
-            /**
-             * [{id: 1, name: A}]
-             *
-             * {id: 1, name: A update}
-             *
-             * [{id: 1, name: A update}}]
-             */
 
-            const newProjects = projects.map((project) => {
-                return project.id == newProject.id ? newProject : project;
-            });
-
-            localStorage.setItem("projects", JSON.stringify(newProjects));
-
-            router.navigate("/Admin/Projects");
+            fetch("http://localhost:3000/projects/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            }).then(() => router.navigate("/Admin/Projects"));
         });
     });
     return `<div>
@@ -40,13 +40,13 @@ const AdminProjectEditPage = ({ id }) => {
             <form action="" id="form-edit">
                 <div class="form-group">
                     <label for="" class="form-label">Ten Dự án</label>
-                    <input type="text" class="form-control" id="project-name" value="${currentProject.name}"/>
+                    <input type="text" class="form-control" id="project-name" value="${project.name}"/>
                 </div>
                 <div class="form-group">
                     <label for="" class="form-label">Tác giả</label>
-                    <input type="text" class="form-control" id="project-author" value="${currentProject.author}" />
+                    <input type="text" class="form-control" id="project-author" value="${project.author}" />
                 </div>
-                <button class="btn btn-primary">Thêm dự án</button>
+                <button class="btn btn-primary">Sửa dự án</button>
             </form>
             </div>
     </div>`;

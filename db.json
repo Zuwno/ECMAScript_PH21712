@@ -1,0 +1,19 @@
+{
+  "projects": [
+    {
+      "name": "Dự án 1",
+      "author": "Phong",
+      "id": 1
+    },
+    {
+      "name": "Dự án 2",
+      "author": "Phong",
+      "id": 2
+    },
+    {
+      "name": "Dự án 3",
+      "author": "Phong",
+      "id": 3
+    }
+  ]
+}

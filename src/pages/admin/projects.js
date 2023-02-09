@@ -1,18 +1,13 @@
 import { useEffect, useState } from "@/lib";
 
-
-
 const AdminProjectsPage = () => {
 
-  const [data, setData] = useState([]);
-  const [status, setStatus] = useState("loading...");
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    // const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    // setData(projects);
-    fetch("https://reqres.in/api/unknown")
+    fetch("http://localhost:3000/projects")
             .then((response) => response.json())
-            .then(({ data }) => setData(data));
+            .then(( data ) => setProjects(data));
   },[]);
 
   useEffect(function () {
@@ -20,9 +15,12 @@ const AdminProjectsPage = () => {
     for (let btn of btns) {
       btn.addEventListener("click", function () {
         const id = btn.dataset.id;
-        const NewProjects = data.filter((project) => project.id != id);
-        localStorage.setItem("projects", JSON.stringify(NewProjects));
-        setData(NewProjects);
+        fetch(`http://localhost:3000/projects/${id}`, 
+        {
+          method: "DELETE",
+        }).then(() => { const NewProjects = projects.filter((project) => project.id != id);
+          setProjects(NewProjects);})
+        
       });
     }
   });
@@ -40,10 +38,7 @@ const AdminProjectsPage = () => {
                     </thead>
                     <tbody>
                     ${
-                      data.length == 0
-                          ? `<tr><td colspan="3">${status}</td></tr>`
-                          : data
-                                .map((project, index) => {
+                      projects.map((project, index) => {
                                     return `
                                 <tr>
                                     <td>${index + 1}</td>
@@ -65,3 +60,5 @@ const AdminProjectsPage = () => {
 };
 
 export default AdminProjectsPage;
+
+

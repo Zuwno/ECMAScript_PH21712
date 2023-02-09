@@ -4,7 +4,7 @@ import { router, useEffect } from "@/lib";
 
 const AdminProjectsAddPage = () => 
 {
-    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+
      useEffect(() => {
           const form = document.querySelector("#form-add");
           const projectName = document.querySelector("#project-name");
@@ -13,19 +13,20 @@ const AdminProjectsAddPage = () =>
           form.addEventListener("submit", function (e) {
               e.preventDefault();
               
-              const project = {
+              const formData = {
                 
-                  id: projects.length + 1,
                   name: projectName.value,
                   author: projectAuthor.value,
               };
             
+              fetch("http://localhost:3000/projects", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+              }).then(() => router.navigate("/Admin/Projects"))
               
-              projects.push(project);
-  
-                localStorage.setItem("projects", JSON.stringify(projects));
-            
-              router.navigate("/Admin/Projects");
           });
       });
       return `<div class="container pt-5">
